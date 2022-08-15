@@ -86,10 +86,11 @@ export default function handler(
   const toSign = new Uint8Array(messageInts);
   const signature = algosdk.signBytes(toSign, sk);
 
+  const signatureLength = signature.length;
   console.log({
     toSign: Utf8ArrayToStr(toSign),
     signature: Utf8ArrayToStr(signature),
     signer: Utf8ArrayToStr(signer),
   });
-  res.status(200).json({ signature });
+  res.status(200).json({ signature, signatureLength });
 }

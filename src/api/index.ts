@@ -6,5 +6,10 @@ export const fetchSignature = async () => {
   });
   const res = (await response.json()) as any;
 
-  return Uint8Array.from(res.signature);
+  console.log({ responseSignature: res.signature });
+  const messageInts: number[] = [];
+  for (let i = 0; i < res.signatureLength; i++) {
+    messageInts.push(res.signature[i]);
+  }
+  return new Uint8Array(messageInts);
 };

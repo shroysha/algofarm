@@ -8,6 +8,7 @@ export const makeSdk = async () => {
     443
   );
   const suggestedParams = await algod.getTransactionParams().do();
-
+  suggestedParams.flatFee = true;
+  suggestedParams.fee = 5000;
   return { algod, suggestedParams };
 };

@@ -27,7 +27,10 @@ export default async function handler(
   for (let x of new Uint8Array(Buffer.from('ProgData'))) {
     messageInts.push(x);
   }
-  for (let x of decodeAddress(minterContract).checksum) {
+  for (let x of [
+    65, 187, 254, 78, 23, 85, 20, 30, 4, 219, 134, 215, 88, 101, 69, 223, 218,
+    203, 241, 217, 175, 1, 122, 130, 170, 154, 44, 101, 18, 161, 138, 217,
+  ]) {
     messageInts.push(x);
   }
   console.log(Buffer.from(algosdk.encodeUint64(nonce)).readUInt32BE());

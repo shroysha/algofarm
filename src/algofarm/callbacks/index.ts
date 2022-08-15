@@ -28,13 +28,11 @@ export const useOptInCallback = (accountAddress: string | null) => {
       amount: 0,
       suggestedParams,
     });
-    const opt3 = algosdk.makeAssetTransferTxnWithSuggestedParamsFromObject({
-      from: accountAddress,
-      to: accountAddress,
-      assetIndex: minterId,
-      amount: 0,
+    const opt3 = algosdk.makeApplicationOptInTxn(
+      accountAddress,
       suggestedParams,
-    });
+      minterId
+    );
 
     algosdk.assignGroupID([opt1, opt2, opt3]);
 

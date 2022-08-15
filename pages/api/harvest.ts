@@ -41,5 +41,10 @@ export default async function handler(
   const isValid = await ed.verify(signature, message, getPublicKey());
 
   console.log({ message, signature, isValid });
-  res.status(200).json({ signature, message });
+  res
+    .status(200)
+    .json({
+      signature,
+      message: new Uint8Array(Buffer.from('' + nonce + '' + nft1)),
+    });
 }

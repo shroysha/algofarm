@@ -159,7 +159,10 @@ export const useSetSignerCallback = (accountAddress: string | null) => {
       accountAddress,
       suggestedParams,
       minterId,
-      [new Uint8Array(Buffer.from('optIn')), publicKey]
+      [new Uint8Array(Buffer.from('optIn')), publicKey],
+      undefined,
+      undefined,
+      [nft1, nft2]
     );
 
     algosdk.assignGroupID([opContract, opContract2]);

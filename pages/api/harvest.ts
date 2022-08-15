@@ -24,12 +24,12 @@ export default async function handler(
   const nonce = 0;
 
   const messageInts: number[] = [];
-  for (let x of new Uint8Array(Buffer.from('ProgData'))) {
-    messageInts.push(x);
-  }
-  for (let x of decodeAddress(minterContract).checksum) {
-    messageInts.push(x);
-  }
+  // for (let x of new Uint8Array(Buffer.from('ProgData'))) {
+  //   messageInts.push(x);
+  // }
+  // for (let x of decodeAddress(minterContract).checksum) {
+  //   messageInts.push(x);
+  // }
   console.log(Buffer.from(algosdk.encodeUint64(nonce)).readUInt32BE());
   messageInts.push(Buffer.from(algosdk.encodeUint64(nonce)).readUInt32BE());
   for (let x of new Uint8Array(Buffer.from('' + nft1))) {

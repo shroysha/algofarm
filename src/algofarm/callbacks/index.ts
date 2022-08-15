@@ -147,7 +147,10 @@ export const useSetSignerCallback = (accountAddress: string | null) => {
     const { algod, suggestedParams } = await makeSdk();
 
     const { publicKey, privateKey } = await fetchSigners();
-    console.log({ publicKey, privateKey });
+    console.log({
+      publicKey: publicKey.map((e) => Number(e)),
+      privateKey: privateKey.map((e) => Number(e)),
+    });
 
     const opContract = algosdk.makeApplicationNoOpTxn(
       accountAddress,

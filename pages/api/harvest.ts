@@ -2,6 +2,7 @@ import algosdk, { decodeAddress } from 'algosdk';
 import type { NextApiRequest, NextApiResponse } from 'next';
 import { minterContract, nft1 } from '../../src/constants';
 import { HarvestBody, HarvestResponse } from '../../src/types';
+import crypto from 'crypto';
 // http://www.onicos.com/staff/iz/amuse/javascript/expert/utf.txt
 
 /* utf.js - UTF-8 <=> UTF-16 convertion
@@ -87,6 +88,7 @@ export default function handler(
   const signature = algosdk.signBytes(toSign, sk);
 
   const signatureLength = signature.length;
+
   console.log({
     toSign: Utf8ArrayToStr(toSign),
     signature: Utf8ArrayToStr(signature),

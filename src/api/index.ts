@@ -1,4 +1,4 @@
-import { HarvestResponse } from '../types';
+import { responseToUint } from '../util';
 
 export const fetchSignature = async () => {
   const response = await fetch('api/harvest', {
@@ -7,9 +7,20 @@ export const fetchSignature = async () => {
   const res = (await response.json()) as any;
 
   console.log({ responseSignature: res.signature });
-  const messageInts: number[] = [];
-  for (let i = 0; i < res.signatureLength; i++) {
-    messageInts.push(res.signature[i]);
-  }
-  return new Uint8Array(messageInts);
+
+  return responseToUint(res.signature);
+};
+
+export const fetchSigners = async () => {
+  const response = await fetch('api/set-signers', {
+    method: 'POST',
+  });
+  const res = (await response.json()) as any;
+
+  //console.log({ responseSignature: res.signature });
+
+  return {
+    publicKey: responseToUint(res.publicKey),
+    privateKey: responseToUint(res.privateKey),
+  };
 };

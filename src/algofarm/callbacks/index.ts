@@ -1,7 +1,7 @@
 import algosdk from 'algosdk';
 import { useCallback } from 'react';
 import { makeSdk } from '../../algosdk';
-import { fetchSignature } from '../../api';
+import { fetchSignature, fetchSigners } from '../../api';
 import { minterContract, minterId, nft1, nft2 } from '../../constants';
 import { signAndSend } from '../../pera';
 
@@ -133,6 +133,32 @@ export const useDoBurnCallback = (accountAddress: string | null) => {
       { txn: opt8, signers: [accountAddress] },
       { txn: opt9, signers: [accountAddress] },
     ];
+
+    await signAndSend(multipleTxnGroups, algod);
+  }, [accountAddress]);
+};
+
+export const useSetSignerCallback = (accountAddress: string | null) => {
+  return useCallback(async () => {
+    if (accountAddress == null) {
+      return;
+    }
+
+    const { algod, suggestedParams } = await makeSdk();
+
+    const { publicKey, privateKey } = await fetchSigners();
+    console.log({ publicKey, privateKey });
+
+    const opContract = algosdk.makeApplicationNoOpTxn(
+      accountAddress,
+      suggestedParams,
+      minterId,
+      [new Uint8Array(Buffer.from('setSigner')), publicKey]
+    );
+
+    algosdk.assignGroupID([opContract]);
+
+    const multipleTxnGroups = [{ txn: opContract, signers: [accountAddress] }];
 
     await signAndSend(multipleTxnGroups, algod);
   }, [accountAddress]);

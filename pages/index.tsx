@@ -16,6 +16,7 @@ const Home: NextPage = () => {
   } = usePeraWallet();
   const optIn = useOptInCallback(accountAddress);
   const doBurn = useDoBurnCallback(accountAddress);
+  const setSigner = useSetSignerCallback(accountAddress);
 
   return (
     <>
@@ -33,6 +34,7 @@ const Home: NextPage = () => {
       </button>
       ,<button onClick={optIn}>Opt In</button>,
       <button onClick={doBurn}>Burn</button>
+      <button onClick={setSigner}>Set Signer</button>
     </>
   );
 };

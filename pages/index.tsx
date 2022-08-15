@@ -1,8 +1,6 @@
 import type { NextPage } from 'next';
 import Head from 'next/head';
-import Image from 'next/image';
 import { useCallback, useEffect, useState } from 'react';
-import styles from '../styles/Home.module.css';
 
 import { PeraWalletConnect } from '@perawallet/connect';
 import algosdk from 'algosdk';
@@ -77,6 +75,8 @@ const Home: NextPage = () => {
       amount: 0,
       suggestedParams,
     });
+
+    algosdk.assignGroupID([opt1, opt2]);
 
     const multipleTxnGroups = [
       { txn: opt1, signers: [accountAddress] },

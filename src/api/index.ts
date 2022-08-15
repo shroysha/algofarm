@@ -12,7 +12,7 @@ export const fetchSignature = async () => {
 };
 
 export const fetchSigners = async () => {
-  const response = await fetch('api/set-signers', {
+  const response = await fetch('api/set-signer', {
     method: 'POST',
   });
   const res = (await response.json()) as any;

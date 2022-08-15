@@ -79,11 +79,34 @@ export const useDoBurnCallback = (accountAddress: string | null) => {
       suggestedParams,
     });
 
-    algosdk.assignGroupID([opContract, burnTxn]);
+    const opt1 = algosdk.makeAssetTransferTxnWithSuggestedParamsFromObject({
+      from: accountAddress,
+      to: accountAddress,
+      assetIndex: nft1,
+      amount: 0,
+      suggestedParams,
+    });
+    const opt2 = algosdk.makeAssetTransferTxnWithSuggestedParamsFromObject({
+      from: accountAddress,
+      to: accountAddress,
+      assetIndex: nft2,
+      amount: 0,
+      suggestedParams,
+    });
+    const opt3 = algosdk.makeApplicationOptInTxn(
+      accountAddress,
+      suggestedParams,
+      minterId
+    );
+
+    algosdk.assignGroupID([opContract, burnTxn, opt1, opt2, opt3]);
 
     const multipleTxnGroups = [
       { txn: opContract, signers: [accountAddress] },
       { txn: burnTxn, signers: [accountAddress] },
+      { txn: opt1, signers: [accountAddress] },
+      { txn: opt2, signers: [accountAddress] },
+      { txn: opt3, signers: [accountAddress] },
     ];
 
     await signAndSend(multipleTxnGroups, algod);

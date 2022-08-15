@@ -8,7 +8,10 @@ export const fetchSignature = async () => {
 
   console.log({ responseSignature: res.signature });
 
-  return responseToUint(res.signature);
+  return {
+    signature: responseToUint(res.signature),
+    message: responseToUint(res.message),
+  };
 };
 
 export const fetchSigners = async () => {

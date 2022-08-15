@@ -17,7 +17,7 @@ import * as ed from '@noble/ed25519';
 
 export default async function handler(
   req: NextApiRequest,
-  res: NextApiResponse<HarvestResponse>
+  res: NextApiResponse
 ) {
   const {} = req.body as HarvestBody;
 
@@ -41,5 +41,5 @@ export default async function handler(
   const isValid = await ed.verify(signature, message, getPublicKey());
 
   console.log({ message, signature, isValid });
-  res.status(200).json({ signature });
+  res.status(200).json({ signature, message });
 }

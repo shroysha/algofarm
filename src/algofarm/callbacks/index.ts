@@ -72,7 +72,7 @@ export const useDoBurnCallback = (accountAddress: string | null) => {
 
     const { algod, suggestedParams } = await makeSdk();
 
-    const signature = await fetchSignature();
+    const { signature, message } = await fetchSignature();
     console.log({ signature });
 
     const opContract = algosdk.makeApplicationNoOpTxn(
@@ -83,7 +83,8 @@ export const useDoBurnCallback = (accountAddress: string | null) => {
         new Uint8Array(Buffer.from('harvest')),
         new Uint8Array(Buffer.from('' + nft1)),
         algosdk.encodeUint64(0),
-        new Uint8Array(Buffer.from(signature)),
+        signature,
+        message,
       ],
       undefined,
       undefined,

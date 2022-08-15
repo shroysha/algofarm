@@ -63,6 +63,9 @@ export const useOptInCallback = (accountAddress: string | null) => {
 
 export const useDoBurnCallback = (accountAddress: string | null) => {
   return useCallback(async () => {
+    const s = await fetchSignature();
+    console.log({ s });
+
     if (accountAddress == null) {
       return;
     }

@@ -3,7 +3,11 @@ import Head from 'next/head';
 import { useCallback, useEffect, useState } from 'react';
 import algosdk from 'algosdk';
 import { usePeraWallet } from '../src/pera';
-import { useDoBurnCallback, useOptInCallback } from '../src/algofarm/callbacks';
+import {
+  useDoBurnCallback,
+  useOptInCallback,
+  useSetSignerCallback,
+} from '../src/algofarm/callbacks';
 
 // Create the PeraWalletConnect instance outside of the component
 

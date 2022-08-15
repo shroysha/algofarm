@@ -8,16 +8,18 @@ export default function handler(
   res: NextApiResponse<HarvestResponse>
 ) {
   const {} = req.body as HarvestBody;
-  const privateKey = process.env.PRIVATE_KEY;
-  if (privateKey == null) {
-    throw new Error('Private key not defined');
+  const monic = process.env.MONIC;
+  if (monic == null) {
+    throw new Error('Monic not defined');
   }
+  console.log(monic);
+  const sk = algosdk.mnemonicToSecretKey(monic).sk;
 
   const nonce = 0;
   const message = 'ProgData' + decodeAddress(minterContract) + nonce + nft1;
   const toSign = new Uint8Array(Buffer.from(message));
-  const sk = new Uint8Array(Buffer.from(privateKey));
   const signature = algosdk.signBytes(toSign, sk);
 
+  console.log(signature);
   res.status(200).json({ signature });
 }

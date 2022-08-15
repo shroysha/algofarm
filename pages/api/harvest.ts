@@ -31,8 +31,8 @@ export default async function handler(
   //   messageInts.push(x);
   // }
   console.log(Buffer.from(algosdk.encodeUint64(nonce)).readUInt32BE());
-  messageInts.push(Buffer.from(algosdk.encodeUint64(nonce)).readUInt32BE());
-  for (let x of new Uint8Array(Buffer.from('' + nft1))) {
+  messageInts.push(nonce);
+  for (let x of new Uint8Array(Buffer.from('' + nonce + '' + nft1))) {
     messageInts.push(x);
   }
 

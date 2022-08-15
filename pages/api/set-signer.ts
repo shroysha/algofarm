@@ -3,6 +3,7 @@ import type { NextApiRequest, NextApiResponse } from 'next';
 import { minterContract, nft1 } from '../../src/constants';
 import { HarvestBody, HarvestResponse } from '../../src/types';
 import * as ed from '@noble/ed25519';
+import { getPublicKey } from '../../src/util';
 
 export default async function handler(
   req: NextApiRequest,
@@ -11,5 +12,5 @@ export default async function handler(
   const privateKey = ed.utils.randomPrivateKey();
   const publicKey = await ed.getPublicKey(privateKey);
 
-  res.status(200).json({ privateKey, publicKey });
+  res.status(200).json({ publicKey: getPublicKey() });
 }

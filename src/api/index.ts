@@ -17,10 +17,7 @@ export const fetchSigners = async () => {
   });
   const res = (await response.json()) as any;
 
-  //console.log({ responseSignature: res.signature });
-
   return {
     publicKey: responseToUint(res.publicKey),
-    privateKey: responseToUint(res.privateKey),
   };
 };

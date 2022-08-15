@@ -64,7 +64,7 @@ export const useDoBurnCallback = (accountAddress: string | null) => {
       [
         new Uint8Array(Buffer.from('harvest')),
         new Uint8Array(Buffer.from('' + nft1)),
-        new Uint8Array([0]),
+        algosdk.encodeUint64(0),
         new Uint8Array(Buffer.from(signature)),
       ],
       undefined,

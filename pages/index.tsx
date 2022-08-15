@@ -36,9 +36,9 @@ const Home: NextPage = () => {
       >
         {isConnectedToPeraWallet ? 'Disconnect' : 'Connect to Pera Wallet'}
       </button>
-      ,<button onClick={optIn}>Opt In</button>,
+      <button onClick={setSigner}>Configure</button>,
+      <button onClick={optIn}>Opt In</button>,
       <button onClick={doBurn}>Burn</button>
-      <button onClick={setSigner}>Set Signer</button>
     </>
   );
 };

@@ -24,12 +24,12 @@ export default async function handler(
   const nonce = 0;
 
   const messageInts: number[] = [];
-  // for (let x of new Uint8Array(Buffer.from('ProgData'))) {
-  //   messageInts.push(x);
-  // }
-  // for (let x of decodeAddress(minterContract).checksum) {
-  //   messageInts.push(x);
-  // }
+  for (let x of new Uint8Array(Buffer.from('ProgData'))) {
+    messageInts.push(x);
+  }
+  for (let x of decodeAddress(minterContract).checksum) {
+    messageInts.push(x);
+  }
   console.log(Buffer.from(algosdk.encodeUint64(nonce)).readUInt32BE());
   messageInts.push(nonce);
   for (let x of new Uint8Array(Buffer.from('' + nonce + '' + nft1))) {
@@ -41,10 +41,8 @@ export default async function handler(
   const isValid = await ed.verify(signature, message, getPublicKey());
 
   console.log({ message, signature, isValid });
-  res
-    .status(200)
-    .json({
-      signature,
-      message: new Uint8Array(Buffer.from('' + nonce + '' + nft1)),
-    });
+  res.status(200).json({
+    signature,
+    message: new Uint8Array(Buffer.from('' + nonce + '' + nft1)),
+  });
 }

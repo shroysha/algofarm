@@ -44,10 +44,10 @@ export default async function handler(
   const account = algosdk.mnemonicToSecretKey(process.env.SIGNER_MONIC);
   //const message = new Uint8Array(Buffer.from('' + nonce + '' + nft1));
   const messageInts: number[] = [];
-  for (let x in algosdk.encodeUint64(nonce)) {
-    messageInts.push(nonce);
+  for (let x of algosdk.encodeUint64(nonce)) {
+    messageInts.push(x);
   }
-  for (let x of new Uint8Array(Buffer.from('' + nonce + '' + nft1))) {
+  for (let x of algosdk.encodeUint64(nft1)) {
     messageInts.push(x);
   }
   const message = new Uint8Array(messageInts);

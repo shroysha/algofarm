@@ -14,7 +14,7 @@ const makeNothing = (
     accountAddress,
     suggestedParams,
     minterId,
-    [new Uint8Array(Buffer.from('nothing')), algosdk.encodeUint64(id)]
+    [new Uint8Array(Buffer.from('nothing')), new Uint8Array([id])]
   );
 
   return opContract;
@@ -110,7 +110,7 @@ export const useDoBurnCallback = (accountAddress: string | null) => {
     algosdk.assignGroupID([
       opContract,
       burnTxn,
-      // opt1,
+      opt1,
       // opt2,
       // opt3,
       // opt4,
@@ -124,7 +124,7 @@ export const useDoBurnCallback = (accountAddress: string | null) => {
     const multipleTxnGroups = [
       { txn: opContract, signers: [accountAddress] },
       { txn: burnTxn, signers: [accountAddress] },
-      // { txn: opt1, signers: [accountAddress] },
+      { txn: opt1, signers: [accountAddress] },
       // { txn: opt2, signers: [accountAddress] },
       // { txn: opt3, signers: [accountAddress] },
       // { txn: opt4, signers: [accountAddress] },

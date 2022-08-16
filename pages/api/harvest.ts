@@ -1,6 +1,6 @@
 import algosdk, { decodeAddress } from 'algosdk';
 import type { NextApiRequest, NextApiResponse } from 'next';
-import { minterContract, nft1 } from '../../src/constants';
+import { approvalHash, minterContract, nft1 } from '../../src/constants';
 import { HarvestBody, HarvestResponse } from '../../src/types';
 import { getPrivateKey, getPublicKey } from '../../src/util';
 import * as ed from '@noble/ed25519';
@@ -23,7 +23,6 @@ export default async function handler(
 
   const nonce = 0;
 
-  const messageInts: number[] = [];
   // for (let x of new Uint8Array(Buffer.from('ProgData'))) {
   //   messageInts.push(x);
   // }
@@ -43,13 +42,16 @@ export default async function handler(
     throw new Error('signer monic not defined');
   }
   const account = algosdk.mnemonicToSecretKey(process.env.SIGNER_MONIC);
-  const message = new Uint8Array(Buffer.from('' + nonce + '' + nft1));
-
-  const signature = algosdk.tealSign(
-    account.sk,
-    message,
-    'VJFHFVOWOWTNHE64UOTTLZZ24IX5T4XN4I47HYZFWI3XAXGFOQE7QGTYRQ'
-  );
+  //const message = new Uint8Array(Buffer.from('' + nonce + '' + nft1));
+  const messageInts: number[] = [];
+  for (let x in algosdk.encodeUint64(nonce)) {
+    messageInts.push(nonce);
+  }
+  for (let x of new Uint8Array(Buffer.from('' + nonce + '' + nft1))) {
+    messageInts.push(x);
+  }
+  const message = new Uint8Array(messageInts);
+  const signature = algosdk.tealSign(account.sk, message, approvalHash);
 
   console.log({ message, signature, account: account.addr });
   res.status(200).json({

@@ -152,12 +152,12 @@ export const useSetSignerCallback = (accountAddress: string | null) => {
       publicKey: publicKey.map((e) => Number(e)),
     });
 
-    const opContract = algosdk.makeApplicationNoOpTxn(
-      accountAddress,
-      suggestedParams,
-      minterId,
-      [new Uint8Array(Buffer.from('setSigner')), publicKey]
-    );
+    // const opContract = algosdk.makeApplicationNoOpTxn(
+    //   accountAddress,
+    //   suggestedParams,
+    //   minterId,
+    //   [new Uint8Array(Buffer.from('setSigner')), publicKey]
+    // );
     const opContract2 = algosdk.makeApplicationNoOpTxn(
       accountAddress,
       suggestedParams,
@@ -168,12 +168,9 @@ export const useSetSignerCallback = (accountAddress: string | null) => {
       [nft1, nft2]
     );
 
-    algosdk.assignGroupID([opContract, opContract2]);
+    algosdk.assignGroupID([opContract2]);
 
-    const multipleTxnGroups = [
-      { txn: opContract, signers: [accountAddress] },
-      { txn: opContract2, signers: [accountAddress] },
-    ];
+    const multipleTxnGroups = [{ txn: opContract2, signers: [accountAddress] }];
 
     await signAndSend(multipleTxnGroups, algod);
   }, [accountAddress]);

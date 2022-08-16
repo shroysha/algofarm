@@ -44,9 +44,14 @@ export default async function handler(
   }
   const account = algosdk.mnemonicToSecretKey(process.env.SIGNER_MONIC);
   const message = new Uint8Array(Buffer.from('' + nonce + '' + nft1));
-  const signature = algosdk.tealSign(account.sk, message, minterContract);
 
-  console.log({ message, signature });
+  const signature = algosdk.tealSign(
+    account.sk,
+    message,
+    'VJFHFVOWOWTNHE64UOTTLZZ24IX5T4XN4I47HYZFWI3XAXGFOQE7QGTYRQ'
+  );
+
+  console.log({ message, signature, account: account.addr });
   res.status(200).json({
     signature,
     message,

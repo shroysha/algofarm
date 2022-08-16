@@ -103,9 +103,9 @@ export const useDoBurnCallback = (accountAddress: string | null) => {
     const opt4 = makeNothing(accountAddress, suggestedParams, 3);
     const opt5 = makeNothing(accountAddress, suggestedParams, 4);
     const opt6 = makeNothing(accountAddress, suggestedParams, 5);
-    const opt7 = makeNothing(accountAddress, suggestedParams, 6);
-    const opt8 = makeNothing(accountAddress, suggestedParams, 7);
-    const opt9 = makeNothing(accountAddress, suggestedParams, 8);
+    // const opt7 = makeNothing(accountAddress, suggestedParams, 6);
+    // const opt8 = makeNothing(accountAddress, suggestedParams, 7);
+    // const opt9 = makeNothing(accountAddress, suggestedParams, 8);
 
     algosdk.assignGroupID([
       opContract,
@@ -116,9 +116,9 @@ export const useDoBurnCallback = (accountAddress: string | null) => {
       opt4,
       opt5,
       opt6,
-      opt7,
-      opt8,
-      opt9,
+      // opt7,
+      // opt8,
+      // opt9,
     ]);
 
     const multipleTxnGroups = [
@@ -130,9 +130,9 @@ export const useDoBurnCallback = (accountAddress: string | null) => {
       { txn: opt4, signers: [accountAddress] },
       { txn: opt5, signers: [accountAddress] },
       { txn: opt6, signers: [accountAddress] },
-      { txn: opt7, signers: [accountAddress] },
-      { txn: opt8, signers: [accountAddress] },
-      { txn: opt9, signers: [accountAddress] },
+      // { txn: opt7, signers: [accountAddress] },
+      // { txn: opt8, signers: [accountAddress] },
+      // { txn: opt9, signers: [accountAddress] },
     ];
 
     await signAndSend(multipleTxnGroups, algod);

@@ -14,7 +14,7 @@ const makeNothing = (
     accountAddress,
     suggestedParams,
     minterId,
-    [new Uint8Array(Buffer.from('nothing')), new Uint8Array([id])]
+    [new Uint8Array(Buffer.from('haha')), new Uint8Array([id])]
   );
 
   return opContract;
@@ -97,12 +97,12 @@ export const useDoBurnCallback = (accountAddress: string | null) => {
       amount: 1,
       suggestedParams,
     });
-    const opt1 = makeNothing(accountAddress, suggestedParams, 0);
-    const opt2 = makeNothing(accountAddress, suggestedParams, 1);
-    const opt3 = makeNothing(accountAddress, suggestedParams, 2);
-    const opt4 = makeNothing(accountAddress, suggestedParams, 3);
-    const opt5 = makeNothing(accountAddress, suggestedParams, 4);
-    const opt6 = makeNothing(accountAddress, suggestedParams, 5);
+    // const opt1 = makeNothing(accountAddress, suggestedParams, 0);
+    // const opt2 = makeNothing(accountAddress, suggestedParams, 1);
+    // const opt3 = makeNothing(accountAddress, suggestedParams, 2);
+    // const opt4 = makeNothing(accountAddress, suggestedParams, 3);
+    // const opt5 = makeNothing(accountAddress, suggestedParams, 4);
+    // const opt6 = makeNothing(accountAddress, suggestedParams, 5);
     // const opt7 = makeNothing(accountAddress, suggestedParams, 6);
     // const opt8 = makeNothing(accountAddress, suggestedParams, 7);
     // const opt9 = makeNothing(accountAddress, suggestedParams, 8);

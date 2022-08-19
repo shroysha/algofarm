@@ -1,9 +1,9 @@
-import algosdk, { decodeAddress } from 'algosdk';
+import algosdk from 'algosdk';
 import type { NextApiRequest, NextApiResponse } from 'next';
-import { approvalHash, minterContract, nft1 } from '../../src/constants';
-import { HarvestBody, HarvestResponse } from '../../src/types';
-import { getPrivateKey, getPublicKey } from '../../src/util';
-import * as ed from '@noble/ed25519';
+import { approvalHash, nft1 } from '../../src/constants';
+import { HarvestBody } from '../../src/types';
+import dbConnect from '../../src/util/dbConnect';
+import User from '../../src/models/User';
 
 // http://www.onicos.com/staff/iz/amuse/javascript/expert/utf.txt
 
@@ -19,9 +19,19 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
-  const {} = req.body as HarvestBody;
+  const { wallet } = req.body as HarvestBody;
 
-  const nonce = 0;
+  await dbConnect();
+
+  const user = await User.findOneAndUpdate(
+    {
+      wallet,
+    },
+    { $inc: { nonce: 1 } },
+    { upsert: true, new: true, setDefaultsOnInsert: true }
+  );
+
+  const nonce = user.nonce - 1;
 
   // for (let x of new Uint8Array(Buffer.from('ProgData'))) {
   //   messageInts.push(x);

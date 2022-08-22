@@ -1,6 +1,6 @@
-import { IPlant } from '@src/models';
 import React from 'react';
 import { PlantComponent } from '@src/components';
+import { IPlant } from '@lib/types';
 
 interface PlantGridProps {
   plants: IPlant[];

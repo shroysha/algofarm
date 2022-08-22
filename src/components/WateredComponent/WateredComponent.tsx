@@ -1,4 +1,4 @@
-import { IPlant } from '@src/models';
+import { IPlant } from '@lib/types';
 import { useMemo } from 'react';
 
 interface WateredComponentProps {

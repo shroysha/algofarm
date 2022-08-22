@@ -1,4 +1,4 @@
-import { IPlant } from '@src/models';
+import { IPlant } from '@lib/types';
 import { ActionOverlay } from '../ActionOverlay/ActionOverlay';
 import { WateredComponent } from '../WateredComponent/WateredComponent';
 

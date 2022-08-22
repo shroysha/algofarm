@@ -1,8 +1,8 @@
-import { PlantStage, wateringsNeededToHarvest } from '@lib/constants';
+import { PlantStage } from '@lib/constants';
 import { getPlantStage } from '@lib/util';
-import { IPlant } from '@src/models';
 import { useMemo } from 'react';
 import { useAlgarden } from '@src/hooks';
+import { IPlant } from '@lib/types';
 
 interface PlantComponentProps {
   plant: IPlant;

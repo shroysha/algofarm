@@ -2,12 +2,12 @@ import type { NextPage } from 'next';
 import Head from 'next/head';
 import { useCallback, useEffect, useState } from 'react';
 import algosdk from 'algosdk';
-import { usePeraWallet } from '../src/pera';
+import { usePeraWallet } from '../hooks/usePeraWallet';
 import {
   useDoBurnCallback,
   useOptInCallback,
   useSetSignerCallback,
-} from '../src/algofarm/callbacks';
+} from '../callbacks';
 
 // Create the PeraWalletConnect instance outside of the component
 

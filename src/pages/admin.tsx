@@ -51,7 +51,7 @@ const Home: NextPage = () => {
       <button onClick={doBurn}>Burn</button>
       <input ref={asaTypeInput}></input>
       <input ref={asaBalanceInput}></input>
-      <button onClick={doAsaWithdraw}>Withdraw</button>
+      <button onClick={useAsaWithdraw}>Withdraw</button>
     </>
   );
 };

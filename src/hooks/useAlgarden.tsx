@@ -195,6 +195,10 @@ export const AlgardenProvider = ({ children }: AlgardenProviderProps) => {
           algod
         );
 
+        setModalInput({
+          message: 'Inspecting plants...',
+          modalType: ModalType.Loading,
+        });
         while (initBalance === (await getAsaBalance(accountAddress, asa2))) {
           await sleep(500);
         }

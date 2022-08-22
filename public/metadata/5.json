@@ -1,0 +1,10 @@
+{
+  "standard": "arc69",
+  "name": "Watermelon Vining 3",
+  "description": "Grow your plants at algarden.io",
+  "image": "https://algarden.io/images/watermelon/5.png",
+  "properties": {
+    "plant": "Watermelon",
+    "stage": "Vining 3"
+  }
+}

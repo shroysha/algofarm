@@ -170,8 +170,13 @@ export const AlgardenProvider = ({ children }: AlgardenProviderProps) => {
             suggestedParams,
           });
         const opt1 = makeNothing(accountAddress, suggestedParams, 0);
+        const opt2 = makeNothing(accountAddress, suggestedParams, 1);
 
-        await signAndSend(accountAddress, [opContract, burnTxn, opt1], algod);
+        await signAndSend(
+          accountAddress,
+          [opContract, burnTxn, opt1, opt2],
+          algod
+        );
       } finally {
         await fetchPlants();
       }

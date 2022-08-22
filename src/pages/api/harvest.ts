@@ -6,7 +6,11 @@ import { createUser, getUserNonce } from '@lib/util/backend';
 import { Plant } from '@src/models';
 import { getPlantStage } from '@lib/util';
 
-export const makeHarvestSignature = async (nonce: number, plantId: string) => {
+export const makeHarvestSignature = async (
+  wallet: string,
+  nonce: number,
+  plantId: string
+) => {
   const plant = await Plant.findOneAndDelete({
     _id: plantId,
   });
@@ -19,7 +23,16 @@ export const makeHarvestSignature = async (nonce: number, plantId: string) => {
   }
   const account = algosdk.mnemonicToSecretKey(process.env.SIGNER_MONIC);
   const messageInts: number[] = [];
+  for (let x of Buffer.from(wallet)) {
+    messageInts.push(x);
+  }
+  for (let x of Buffer.from(':')) {
+    messageInts.push(x);
+  }
   for (let x of algosdk.encodeUint64(nonce)) {
+    messageInts.push(x);
+  }
+  for (let x of Buffer.from(':')) {
     messageInts.push(x);
   }
   for (let x of algosdk.encodeUint64(plant.assetId)) {
@@ -43,6 +56,7 @@ export default async function handler(
   const user = await createUser(wallet);
   const nonce = await getUserNonce(wallet);
   const { message, signature, asa1, asa2 } = await makeHarvestSignature(
+    wallet,
     nonce,
     id
   );

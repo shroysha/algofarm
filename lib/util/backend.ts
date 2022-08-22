@@ -52,32 +52,19 @@ export const syncPlants = async (wallet: string) => {
     let numToDelete = plantsBefore - amount;
     console.log('deleting', assetId, plantsBefore, numToDelete);
     if (numToDelete > 0) {
-      let idsToDelete: any[] = [];
-      const harvesting = await Plant.findOne({
-        assetId,
-        owner: user.wallet,
-        isBeingHarvest: true,
-      });
-
-      if (harvesting != null) {
-        numToDelete--;
-        idsToDelete.push(harvesting._id);
-      }
-
       const ids = (
-        await Plant.find({ assetId, owner: user.wallet, isBeingHarvest: false })
+        await Plant.find({ assetId, owner: user.wallet })
           .sort({
             timesWatered: -1,
           })
           .limit(numToDelete)
       ).map((plant) => plant._id);
 
-      idsToDelete = idsToDelete.concat(ids);
       console.log('deleting', ids);
       dbOps.push(
         new Promise<void>(async (resolve, reject) => {
           try {
-            await Plant.deleteMany({ _id: { $in: idsToDelete } });
+            await Plant.deleteMany({ _id: { $in: ids } });
             resolve();
           } catch (e: any) {
             console.error(e);

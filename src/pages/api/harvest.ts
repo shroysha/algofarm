@@ -22,19 +22,20 @@ export const makeHarvestSignature = async (
     throw new Error('signer monic not defined');
   }
   const account = algosdk.mnemonicToSecretKey(process.env.SIGNER_MONIC);
+  console.log('signer', account.addr);
   const messageInts: number[] = [];
   for (let x of Buffer.from(algosdk.decodeAddress(wallet).publicKey)) {
     messageInts.push(x);
   }
-  for (let x of Buffer.from(':')) {
-    messageInts.push(x);
-  }
+  // for (let x of Buffer.from(':')) {
+  //   messageInts.push(x);
+  // }
   for (let x of algosdk.encodeUint64(nonce)) {
     messageInts.push(x);
   }
-  for (let x of Buffer.from(':')) {
-    messageInts.push(x);
-  }
+  // for (let x of Buffer.from(':')) {
+  //   messageInts.push(x);
+  // }
   for (let x of algosdk.encodeUint64(plant.assetId)) {
     messageInts.push(x);
   }

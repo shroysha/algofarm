@@ -6,5 +6,15 @@
   "properties": {
     "plant": "Watermelon",
     "stage": "Vining 2"
-  }
+  },
+  "attributes": [
+    {
+      "trait_type": "Plant",
+      "value": "Watermelon"
+    },
+    {
+      "trait_type": "Stage",
+      "value": "Vining 2"
+    }
+  ]
 }

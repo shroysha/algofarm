@@ -6,5 +6,15 @@
   "properties": {
     "plant": "Watermelon",
     "stage": "Fruiting"
-  }
+  },
+  "attributes": [
+    {
+      "trait_type": "Plant",
+      "value": "Watermelon"
+    },
+    {
+      "trait_type": "Stage",
+      "value": "Fruiting"
+    }
+  ]
 }

@@ -1,15 +1,13 @@
-import mongoose from 'mongoose';
+import { IUser } from '@lib/types';
+import mongoose, { Schema } from 'mongoose';
 
-const UserSchema = new mongoose.Schema({
+const UserSchema = new Schema({
   wallet: {
     type: String,
     required: true,
-  },
-  nonce: {
-    type: Number,
-    required: true,
-    default: 0,
+    unique: true,
   },
 });
 
-export default mongoose.models.User || mongoose.model('User', UserSchema);
+export const User =
+  mongoose.models.User || mongoose.model<IUser>('User', UserSchema);

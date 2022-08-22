@@ -1,7 +1,0 @@
-export const minterId = 105311982;
-export const minterContract =
-  'K5LD2VUC3DGIBVU7535C7M62KTIKCKHKDVLUWLSJYNQQR6MOWJQKVA7PGM';
-export const approvalHash =
-  'WZOHVL747VSLCVC7HQ22L2M23S5Y7PRFSTSXMAUPJ4WPJMEUCUQS7OBAOM';
-export const nft1 = 105011818;
-export const nft2 = 105040567;

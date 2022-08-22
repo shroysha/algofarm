@@ -42,7 +42,7 @@ export default async function handler(
   const nonce = await getUserNonce(wallet);
   const { message, signature } = await makeHarvestSignature(nonce, id);
 
-  console.log({ message, signature });
+  console.log({ message, signature, nonce });
   res.status(200).json({
     signature,
     message,

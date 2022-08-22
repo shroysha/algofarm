@@ -2,7 +2,7 @@
   "standard": "arc69",
   "name": "Watermelon Vining 2",
   "description": "Grow your plants at algarden.io",
-  "image": "https://algarden.io/images/watermelon/4.png",
+  "image": "https://www.algarden.io/images/watermelon/4.png",
   "properties": {
     "plant": "Watermelon",
     "stage": "Vining 2"

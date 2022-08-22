@@ -2,7 +2,7 @@
   "standard": "arc69",
   "name": "Watermelon Fruiting",
   "description": "Grow your plants at algarden.io",
-  "image": "https://algarden.io/images/watermelon/7.png",
+  "image": "https://www.algarden.io/images/watermelon/7.png",
   "properties": {
     "plant": "Watermelon",
     "stage": "Fruiting"

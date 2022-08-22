@@ -76,6 +76,13 @@ export const AlgardenProvider = ({ children }: AlgardenProviderProps) => {
       console.log({ plants });
       setPlants(
         plants.sort((a: IPlant, b: IPlant) => {
+          if (a.assetId !== b.assetId) {
+            return a.assetId - b.assetId;
+          } else if (a.timesWatered !== b.timesWatered) {
+            return a.timesWatered - b.timesWatered;
+          } else {
+            return a.lastWateredTime - b.lastWateredTime;
+          }
           return a.assetId - b.assetId;
         })
       );

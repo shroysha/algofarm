@@ -24,6 +24,15 @@ export const Header = ({ accountAddress, onLogin, onLogout }: HeaderProps) => {
       <div>
         <a
           className="mr-10 text-stone-400"
+          href="https://twitter.com/algardenalgo"
+        >
+          Twitter
+        </a>
+        <a className="mr-10 text-stone-400" href="https://t.me/al_garden">
+          Telegram
+        </a>
+        <a
+          className="mr-10 text-stone-400"
           href="https://algoxnft.com/shuffles"
         >
           Shuffle

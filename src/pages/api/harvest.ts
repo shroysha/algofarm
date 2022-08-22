@@ -23,7 +23,7 @@ export const makeHarvestSignature = async (
   }
   const account = algosdk.mnemonicToSecretKey(process.env.SIGNER_MONIC);
   const messageInts: number[] = [];
-  for (let x of Buffer.from(wallet)) {
+  for (let x of Buffer.from(algosdk.decodeAddress(wallet).publicKey)) {
     messageInts.push(x);
   }
   for (let x of Buffer.from(':')) {

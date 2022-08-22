@@ -1,7 +1,7 @@
 import { getAccountInfo } from '@lib/algosdk';
 import { minterId } from '@lib/constants';
 import { Plant, User } from '@src/models';
-import { getAllOurNftAsas } from '.';
+import { getAllOurNftAsas, getAllOurNftAsasList } from '.';
 
 export const createUser = async (wallet: string) => {
   let user = await User.findOne({ wallet });
@@ -16,6 +16,7 @@ export const createUser = async (wallet: string) => {
 export const syncPlants = async (wallet: string) => {
   const user = await createUser(wallet);
 
+  const asas = getAllOurNftAsasList();
   const ourAsaBalances = await getAllOurNftAsas(wallet);
   console.log({ ourAsaBalances });
 
@@ -23,9 +24,15 @@ export const syncPlants = async (wallet: string) => {
   const yesterday = new Date();
   yesterday.setDate(yesterday.getDate() - 1);
 
-  for (let asaBalance of ourAsaBalances) {
-    const assetId = asaBalance['asset-id'];
-    const amount = asaBalance['amount'];
+  for (let assetId of asas) {
+    const asaBalance = ourAsaBalances.find(
+      (asaBalance: any) => asaBalance['asset-id'] === assetId
+    );
+    let amount = 0;
+    if (asaBalance != null) {
+      amount = asaBalance['amount'];
+    }
+
     const plantsBefore = await Plant.count({ owner: user.wallet, assetId });
 
     const assetsToCreate: any = [];
@@ -74,6 +81,7 @@ export const syncPlants = async (wallet: string) => {
       );
     }
   }
+
   await Promise.all(dbOps);
 
   return await Plant.find({ owner: user.wallet });

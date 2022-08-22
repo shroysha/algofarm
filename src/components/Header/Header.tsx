@@ -33,7 +33,7 @@ export const Header = ({ accountAddress, onLogin, onLogout }: HeaderProps) => {
         </a>
         <a
           className="mr-10 text-stone-400"
-          href="https://algoxnft.com/shuffles"
+          href="https://algoxnft.com/shuffle/1001"
         >
           Shuffle
         </a>

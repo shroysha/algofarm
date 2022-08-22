@@ -1,10 +1,10 @@
 import algosdk from 'algosdk';
 import type { NextApiRequest, NextApiResponse } from 'next';
-import { approvalHash, nft1, nft2, PlantStage } from '@lib/constants';
+import { approvalHash, PlantStage } from '@lib/constants';
 import dbConnect from '@lib/util/dbConnect';
 import { createUser, getUserNonce } from '@lib/util/backend';
 import { Plant } from '@src/models';
-import { getPlantStage } from '@lib/util';
+import { getNextPlant, getPlantStage } from '@lib/util';
 
 export const makeHarvestSignature = async (
   wallet: string,
@@ -42,7 +42,7 @@ export const makeHarvestSignature = async (
   const message = new Uint8Array(messageInts);
   const signature = algosdk.tealSign(account.sk, message, approvalHash);
   const asa1 = plant.assetId;
-  const asa2 = nft2;
+  const asa2 = getNextPlant(plant.assetId);
   return { message, signature, asa1, asa2 };
 };
 

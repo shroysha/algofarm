@@ -1,9 +1,9 @@
 import algosdk from 'algosdk';
 import { useCallback } from 'react';
 import { makeSdk } from '@lib/algosdk';
-import { fetchSignature } from '@lib/api';
-import { minterContract, minterId, nft1, nft2 } from '@lib/constants';
+import { minterId } from '@lib/constants';
 import { signAndSend } from '@src/hooks';
+import { getAllOurNftAsasList } from '@lib/util';
 
 export const makeNothing = (
   accountAddress: string,
@@ -28,70 +28,58 @@ export const useOptInCallback = (accountAddress: string | null) => {
 
     const { algod, suggestedParams } = await makeSdk();
 
-    // Setting up Transactions
-    const opt1 = algosdk.makeAssetTransferTxnWithSuggestedParamsFromObject({
-      from: accountAddress,
-      to: accountAddress,
-      assetIndex: nft1,
-      amount: 0,
-      suggestedParams,
+    const asas = getAllOurNftAsasList();
+    const txs = asas.map((asa) => {
+      return algosdk.makeAssetTransferTxnWithSuggestedParamsFromObject({
+        from: accountAddress,
+        to: accountAddress,
+        assetIndex: asa,
+        amount: 0,
+        suggestedParams,
+      });
     });
-    const opt2 = algosdk.makeAssetTransferTxnWithSuggestedParamsFromObject({
-      from: accountAddress,
-      to: accountAddress,
-      assetIndex: nft2,
-      amount: 0,
-      suggestedParams,
-    });
-    const opt3 = algosdk.makeApplicationOptInTxn(
-      accountAddress,
-      suggestedParams,
-      minterId
+    txs.push(
+      algosdk.makeApplicationOptInTxn(accountAddress, suggestedParams, minterId)
     );
 
-    await signAndSend(accountAddress, [opt1, opt2, opt3], algod);
+    await signAndSend(accountAddress, txs, algod);
   }, [accountAddress]);
 };
 
 export const useDoBurnCallback = (accountAddress: string | null) => {
   return useCallback(async () => {
-    const s = await fetchSignature();
-    console.log({ s });
-
-    if (accountAddress == null) {
-      return;
-    }
-
-    const { algod, suggestedParams } = await makeSdk();
-
-    const { signature, message } = await fetchSignature();
-    console.log({ signature });
-
-    const opContract = algosdk.makeApplicationNoOpTxn(
-      accountAddress,
-      suggestedParams,
-      minterId,
-      [
-        new Uint8Array(Buffer.from('harvest')),
-        new Uint8Array(Buffer.from('' + nft1)),
-        algosdk.encodeUint64(0),
-        signature,
-        message,
-      ],
-      undefined,
-      undefined,
-      [nft1, nft2]
-    );
-    const burnTxn = algosdk.makeAssetTransferTxnWithSuggestedParamsFromObject({
-      from: accountAddress,
-      to: minterContract,
-      assetIndex: nft1,
-      amount: 1,
-      suggestedParams,
-    });
-    const opt1 = makeNothing(accountAddress, suggestedParams, 0);
-
-    await signAndSend(accountAddress, [opContract, burnTxn, opt1], algod);
+    // const s = await fetchSignature();
+    // console.log({ s });
+    // if (accountAddress == null) {
+    //   return;
+    // }
+    // const { algod, suggestedParams } = await makeSdk();
+    // const { signature, message } = await fetchSignature();
+    // console.log({ signature });
+    // const opContract = algosdk.makeApplicationNoOpTxn(
+    //   accountAddress,
+    //   suggestedParams,
+    //   minterId,
+    //   [
+    //     new Uint8Array(Buffer.from('harvest')),
+    //     new Uint8Array(Buffer.from('' + nft1)),
+    //     algosdk.encodeUint64(0),
+    //     signature,
+    //     message,
+    //   ],
+    //   undefined,
+    //   undefined,
+    //   [nft1, nft2]
+    // );
+    // const burnTxn = algosdk.makeAssetTransferTxnWithSuggestedParamsFromObject({
+    //   from: accountAddress,
+    //   to: minterContract,
+    //   assetIndex: nft1,
+    //   amount: 1,
+    //   suggestedParams,
+    // });
+    // const opt1 = makeNothing(accountAddress, suggestedParams, 0);
+    // await signAndSend(accountAddress, [opContract, burnTxn, opt1], algod);
   }, [accountAddress]);
 };
 
@@ -110,7 +98,7 @@ export const useSetSignerCallback = (accountAddress: string | null) => {
       [new Uint8Array(Buffer.from('optIn'))],
       undefined,
       undefined,
-      [nft1, nft2]
+      getAllOurNftAsasList()
     );
 
     await signAndSend(accountAddress, [opContract], algod);

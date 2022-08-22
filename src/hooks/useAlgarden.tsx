@@ -15,7 +15,7 @@ import {
 } from '@lib/util';
 import { makeSdk } from '@lib/algosdk';
 import algosdk from 'algosdk';
-import { minterContract, minterId, nft1, nft2 } from '@lib/constants';
+import { minterContract, minterId } from '@lib/constants';
 import { makeNothing } from '@src/callbacks';
 
 export enum ModalType {
@@ -182,7 +182,7 @@ export const AlgardenProvider = ({ children }: AlgardenProviderProps) => {
           algosdk.makeAssetTransferTxnWithSuggestedParamsFromObject({
             from: accountAddress,
             to: minterContract,
-            assetIndex: nft1,
+            assetIndex: plant.assetId,
             amount: 1,
             suggestedParams,
           });

@@ -8,7 +8,6 @@ export type HarvestResponse = {
 
 export interface IUser {
   wallet: string;
-  nonce: number;
 }
 
 export interface IPlant {

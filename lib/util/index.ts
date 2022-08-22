@@ -34,7 +34,7 @@ export const getAllOurNftAsasList = () => {
     return isNaN(Number(item));
   });
   return nftAsaKeys.map((key: string) => {
-    return NftAsa[key as any];
+    return parseInt(NftAsa[key as any]);
   });
 };
 
@@ -61,7 +61,6 @@ export function isReadyToHarvest(plant: IPlant) {
 }
 
 export function getPlantStage(plant: IPlant) {
-  return PlantStage.ReadyToHarvest;
   if (isReadyToHarvest(plant)) {
     return PlantStage.ReadyToHarvest;
   } else if (isReadyToWater(plant)) {
@@ -83,4 +82,42 @@ export async function getAsaBalance(wallet: string, asaId: number) {
 
 export function sleep(ms: number) {
   return new Promise((resolve) => setTimeout(resolve, ms));
+}
+
+export function getNextPlant(assetId: number) {
+  switch (assetId) {
+    case NftAsa.Watermelon1:
+      return NftAsa.Watermelon2;
+    case NftAsa.Watermelon2:
+      return NftAsa.Watermelon3;
+    case NftAsa.Watermelon3:
+      return NftAsa.Watermelon4;
+    case NftAsa.Watermelon4:
+      return NftAsa.Watermelon5;
+    case NftAsa.Watermelon5:
+      return NftAsa.Watermelon6;
+    case NftAsa.Watermelon6:
+      return NftAsa.Watermelon7;
+    default:
+      return null;
+  }
+}
+
+export function getPlantImage(assetId: number) {
+  switch (assetId) {
+    case NftAsa.Watermelon1:
+      return 'images/watermelon/1.png';
+    case NftAsa.Watermelon2:
+      return 'images/watermelon/2.png';
+    case NftAsa.Watermelon3:
+      return 'images/watermelon/3.png';
+    case NftAsa.Watermelon4:
+      return 'images/watermelon/4.png';
+    case NftAsa.Watermelon5:
+      return 'images/watermelon/5.png';
+    case NftAsa.Watermelon6:
+      return 'images/watermelon/6.png';
+    case NftAsa.Watermelon7:
+      return 'images/watermelon/7.png';
+  }
 }

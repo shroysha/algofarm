@@ -1,4 +1,5 @@
 import { IPlant } from '@lib/types';
+import { getPlantImage } from '@lib/util';
 import { ActionOverlay } from '../ActionOverlay/ActionOverlay';
 import { WateredComponent } from '../WateredComponent/WateredComponent';
 
@@ -12,7 +13,7 @@ export const PlantComponent = ({ plant }: PlantComponentProps) => {
       key={`${plant.assetId}-${plant.lastWateredTime}`}
       className="relative border-8 border-black"
     >
-      <img src={`images/watermelon/${plant.assetId}.png`} />
+      <img src={getPlantImage(plant.assetId)} />
       <WateredComponent plant={plant} />
       <ActionOverlay plant={plant} />
     </div>

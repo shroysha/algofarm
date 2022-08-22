@@ -1,9 +1,10 @@
 import type { NextPage } from 'next';
 import Head from 'next/head';
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import algosdk from 'algosdk';
 import { usePeraWallet } from '../hooks/usePeraWallet';
 import {
+  useAsaWithdrawCallback,
   useDoBurnCallback,
   useOptInCallback,
   useSetSignerCallback,
@@ -22,6 +23,15 @@ const Home: NextPage = () => {
   const doBurn = useDoBurnCallback(accountAddress);
   const setSigner = useSetSignerCallback(accountAddress);
 
+  const asaTypeInput = useRef<any>();
+  const asaBalanceInput = useRef<any>();
+
+  const useAsaWithdraw = useAsaWithdrawCallback(
+    accountAddress,
+    asaTypeInput,
+    asaBalanceInput
+  );
+
   return (
     <>
       <Head>
@@ -39,6 +49,9 @@ const Home: NextPage = () => {
       <button onClick={setSigner}>Configure</button>,
       <button onClick={optIn}>Opt In</button>,
       <button onClick={doBurn}>Burn</button>
+      <input ref={asaTypeInput}></input>
+      <input ref={asaBalanceInput}></input>
+      <button onClick={doAsaWithdraw}>Withdraw</button>
     </>
   );
 };

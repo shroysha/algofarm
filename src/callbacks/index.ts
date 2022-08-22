@@ -116,3 +116,37 @@ export const useSetSignerCallback = (accountAddress: string | null) => {
     await signAndSend(accountAddress, [opContract], algod);
   }, [accountAddress]);
 };
+
+export const useAsaWithdrawCallback = (
+  accountAddress: string | null,
+  asaRef: any,
+  asaBalanceRef: any
+) => {
+  return useCallback(async () => {
+    if (accountAddress == null) {
+      return;
+    }
+
+    const asa = Number(asaRef.current.value);
+    const asaBalance = Number(asaBalanceRef.current.value);
+
+    console.log('transferring ', { asa, asaBalance });
+    const { algod, suggestedParams } = await makeSdk();
+
+    const opContract = algosdk.makeApplicationNoOpTxn(
+      accountAddress,
+      suggestedParams,
+      minterId,
+      [
+        new Uint8Array(Buffer.from('withdraw')),
+        algosdk.encodeUint64(asa),
+        algosdk.encodeUint64(asaBalance),
+      ],
+      undefined,
+      undefined,
+      [asa]
+    );
+
+    await signAndSend(accountAddress, [opContract], algod);
+  }, [accountAddress, asaRef, asaBalanceRef]);
+};

@@ -32,10 +32,8 @@ export const syncPlants = async (wallet: string) => {
     for (let i = plantsBefore; i < amount; i++) {
       assetsToCreate.push({
         assetId,
-        index: i,
         lastWateredTime: yesterday.getTime(),
         owner: user.wallet,
-        isBeingHarvested: false,
       });
     }
     console.log('creating', assetId, plantsBefore, assetsToCreate);
@@ -45,6 +43,7 @@ export const syncPlants = async (wallet: string) => {
           await Plant.create(assetsToCreate);
           resolve();
         } catch (e: any) {
+          console.error(e);
           resolve();
         }
       })
@@ -81,6 +80,7 @@ export const syncPlants = async (wallet: string) => {
             await Plant.deleteMany({ _id: { $in: idsToDelete } });
             resolve();
           } catch (e: any) {
+            console.error(e);
             resolve();
           }
         })

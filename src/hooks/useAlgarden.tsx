@@ -140,8 +140,9 @@ export const AlgardenProvider = ({ children }: AlgardenProviderProps) => {
         });
         const res = (await response.json()) as any;
 
-        let signature = responseToUint(res.signature);
-        let message = responseToUint(res.message);
+        const signature = responseToUint(res.signature);
+        const message = responseToUint(res.message);
+        const nonce = res.nonce;
 
         const { algod, suggestedParams } = await makeSdk();
 
@@ -152,7 +153,7 @@ export const AlgardenProvider = ({ children }: AlgardenProviderProps) => {
           [
             new Uint8Array(Buffer.from('harvest')),
             new Uint8Array(Buffer.from('' + plant.assetId)),
-            algosdk.encodeUint64(0),
+            algosdk.encodeUint64(nonce),
             signature,
             message,
           ],

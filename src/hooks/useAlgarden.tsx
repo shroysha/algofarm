@@ -74,7 +74,11 @@ export const AlgardenProvider = ({ children }: AlgardenProviderProps) => {
         await (await fetch(`api/plants/${accountAddress}`)).json()
       ).plants;
       console.log({ plants });
-      setPlants(plants);
+      setPlants(
+        plants.sort((a: IPlant, b: IPlant) => {
+          return a.assetId - b.assetId;
+        })
+      );
     } finally {
       setModalInput(null);
     }

@@ -7,7 +7,12 @@ import React, {
 } from 'react';
 import { IPlant } from '@lib/types';
 import { signAndSend, usePeraWallet } from './usePeraWallet';
-import { responseToUint } from '@lib/util';
+import {
+  getAllOurNftAsasList,
+  responseToUint,
+  getAsaBalance,
+  sleep,
+} from '@lib/util';
 import { makeSdk } from '@lib/algosdk';
 import algosdk from 'algosdk';
 import { minterContract, minterId, nft1, nft2 } from '@lib/constants';
@@ -77,13 +82,12 @@ export const AlgardenProvider = ({ children }: AlgardenProviderProps) => {
       setPlants(
         plants.sort((a: IPlant, b: IPlant) => {
           if (a.assetId !== b.assetId) {
-            return a.assetId - b.assetId;
+            return b.assetId - a.assetId;
           } else if (a.timesWatered !== b.timesWatered) {
-            return a.timesWatered - b.timesWatered;
+            return b.timesWatered - a.timesWatered;
           } else {
-            return a.lastWateredTime - b.lastWateredTime;
+            return b.lastWateredTime - a.lastWateredTime;
           }
-          return a.assetId - b.assetId;
         })
       );
     } finally {
@@ -153,7 +157,9 @@ export const AlgardenProvider = ({ children }: AlgardenProviderProps) => {
 
         const signature = responseToUint(res.signature);
         const message = responseToUint(res.message);
-        const nonce = res.nonce;
+        const { asa1, asa2, nonce } = res;
+
+        const initBalance = await getAsaBalance(accountAddress, asa2);
 
         const { algod, suggestedParams } = await makeSdk();
 
@@ -163,14 +169,14 @@ export const AlgardenProvider = ({ children }: AlgardenProviderProps) => {
           minterId,
           [
             new Uint8Array(Buffer.from('harvest')),
-            new Uint8Array(Buffer.from('' + plant.assetId)),
+            new Uint8Array(Buffer.from('' + asa1)),
             algosdk.encodeUint64(nonce),
             signature,
             message,
           ],
           undefined,
           undefined,
-          [nft1, nft2]
+          [asa1, asa2]
         );
         const burnTxn =
           algosdk.makeAssetTransferTxnWithSuggestedParamsFromObject({
@@ -188,6 +194,10 @@ export const AlgardenProvider = ({ children }: AlgardenProviderProps) => {
           [opContract, burnTxn, opt1, opt2],
           algod
         );
+
+        while (initBalance === (await getAsaBalance(accountAddress, asa2))) {
+          await sleep(500);
+        }
       } finally {
         await fetchPlants();
       }

@@ -1,6 +1,6 @@
 import algosdk from 'algosdk';
 import type { NextApiRequest, NextApiResponse } from 'next';
-import { approvalHash, nft1, PlantStage } from '@lib/constants';
+import { approvalHash, nft1, nft2, PlantStage } from '@lib/constants';
 import dbConnect from '@lib/util/dbConnect';
 import { createUser, getUserNonce } from '@lib/util/backend';
 import { Plant } from '@src/models';
@@ -27,7 +27,9 @@ export const makeHarvestSignature = async (nonce: number, plantId: string) => {
   }
   const message = new Uint8Array(messageInts);
   const signature = algosdk.tealSign(account.sk, message, approvalHash);
-  return { message, signature };
+  const asa1 = plant.assetId;
+  const asa2 = nft2;
+  return { message, signature, asa1, asa2 };
 };
 
 export default async function handler(
@@ -40,12 +42,17 @@ export default async function handler(
 
   const user = await createUser(wallet);
   const nonce = await getUserNonce(wallet);
-  const { message, signature } = await makeHarvestSignature(nonce, id);
+  const { message, signature, asa1, asa2 } = await makeHarvestSignature(
+    nonce,
+    id
+  );
 
-  console.log({ message, signature, nonce });
+  console.log({ message, signature, nonce, asa1, asa2 });
   res.status(200).json({
     signature,
     message,
     nonce,
+    asa1,
+    asa2,
   });
 }

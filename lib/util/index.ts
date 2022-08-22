@@ -70,3 +70,17 @@ export function getPlantStage(plant: IPlant) {
     return PlantStage.AlreadyWateredForDay;
   }
 }
+
+export async function getAsaBalance(wallet: string, asaId: number) {
+  const asaBalances = await getAllOurNftAsas(wallet);
+  for (let asaBalance of asaBalances) {
+    if (asaBalance['asset-id'] === asaId) {
+      return asaBalance['amount'] as number;
+    }
+  }
+  return 0;
+}
+
+export function sleep(ms: number) {
+  return new Promise((resolve) => setTimeout(resolve, ms));
+}

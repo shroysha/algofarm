@@ -7,12 +7,7 @@ import React, {
 } from 'react';
 import { IPlant } from '@lib/types';
 import { signAndSend, usePeraWallet } from './usePeraWallet';
-import {
-  getAllOurNftAsasList,
-  responseToUint,
-  getAsaBalance,
-  sleep,
-} from '@lib/util';
+import { responseToUint, getAsaBalance, sleep } from '@lib/util';
 import { makeSdk } from '@lib/algosdk';
 import algosdk from 'algosdk';
 import { minterContract, minterId } from '@lib/constants';

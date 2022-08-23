@@ -7,9 +7,9 @@ import { Page, PlantGrid } from '@src/components';
 export const HowToPlay = () => {
   return (
     <>
-      <h1>How to Play</h1>
+      <h1 className="text-black">How to Play</h1>
       <br />
-      <p className="p-3">
+      <p className="p-3 text-black">
         Collect plants to start growing! You can water each plant once daily
         using this site. Once you have watered your plant twice, come back the
         next day and grow your plant to the next stage!
@@ -25,7 +25,9 @@ export const IndexPage = () => {
     <>
       {accountAddress == null ? (
         <div className="bg-stone-400 m-10 p-5">
-          <h1>Connect your wallet to view your plants!</h1>
+          <h1 className="text-black">
+            Connect your wallet to view your plants!
+          </h1>
           <br />
           <br />
 
@@ -33,7 +35,7 @@ export const IndexPage = () => {
         </div>
       ) : plants.length == 0 ? (
         <div className="bg-stone-400 m-10 p-5">
-          <h1>You have no plants!</h1>
+          <h1 className="text-black">You have no plants!</h1>
           <br />
           <br />
 

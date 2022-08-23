@@ -11,7 +11,6 @@ a {
   box-sizing: border-box;
 }
 html,
-body,
 body > div:first-child,
 div#__next,
 div#__next > div {
@@ -26,6 +25,12 @@ div#__next > div {
     color: white;
     background: black;
   }
+}
+body {
+  position: fixed;
+  height: 100%;
+  @apply bg-emerald-900;
+  width: 100%;
 }
 .overlay {
   height: 100%;

@@ -8,8 +8,7 @@ const Home: NextPage = () => {
       <div className="bg-stone-400 m-10 p-5">
         <h1>Welcome to Algarden!</h1>
         <br />
-        <br />
-        <p>
+        <p className="p-3">
           We love plants and we love Algorand! <br />
           <br />
           We have created an updatable game that once you water your plants 2
@@ -18,15 +17,13 @@ const Home: NextPage = () => {
           growing cycle!
         </p>
         <br />
+        <h1>Total Supply</h1>
 
-        <p>
-          Total Supply: <br /> Watermelon Seeds: 2500
-        </p>
+        <p className="p-3">Watermelon Seeds: 2500</p>
         <br />
         <h1>Roadmap</h1>
         <br />
-        <br />
-        <ol>
+        <ol className="p-3">
           <li>Harvesting Masteries</li>
           <li>Coin Launch</li>
           <li>Delivery Quests</li>

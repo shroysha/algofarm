@@ -20,7 +20,7 @@ const Home: NextPage = () => {
 
         <p className="p-3 text-black">Watermelon Seeds: 2500</p>
         <br />
-        <h1>Roadmap</h1>
+        <h1 className="text-black">Roadmap</h1>
         <br />
         <ol className="p-3 text-black">
           <li>Harvesting Masteries</li>
